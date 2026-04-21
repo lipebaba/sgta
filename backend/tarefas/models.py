@@ -1,4 +1,5 @@
 from django.db import models
+from usuarios.models import Usuario
 
 class Tarefa(models.Model):
 
@@ -20,6 +21,14 @@ class Tarefa(models.Model):
     prioridade = models.CharField(max_length=15, choices=PRIORIDADE_CHOICES, default='NAO_URGENTE')
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_entrega = models.DateField()
+
+   
+    usuario_responsavel = models.ForeignKey(
+        Usuario,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.titulo
